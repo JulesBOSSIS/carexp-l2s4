@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Voiture index{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="my-4">Voiture index</h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Marque</th>
+                        <th scope="col">Modele</th>
+                        <th scope="col">Année de mise en circulation</th>
+                        <th scope="col">Kilométrage</th>
+                        <th scope="col">Prix de location par jour</th>
+                        <th scope="col">Disponible à la location</th>
+                        <th scope="col">Climatisation</th>
+                        <th scope="col">Nombre de places</th>
+                        <th scope="col">Émissions de CO2</th>
+                        <th scope="col">Images</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for voiture in voitures %}
+                        <tr>
+                            <th scope="row">{{ voiture.id }}</th>
+                            <td>{{ voiture.marque }}</td>
+                            <td>{{ voiture.modele }}</td>
+                            <td>{{ voiture.anneeMiseEnCirculation ? voiture.anneeMiseEnCirculation|date('Y-m-d') : '' }}</td>
+                            <td>{{ voiture.kilometrage }}</td>
+                            <td>{{ voiture.prixLocationParJour }}</td>
+                            <td>{{ voiture.estALouer ? 'Oui' : 'Non' }}</td>
+                            <td>{{ voiture.clim ? 'Oui' : 'Non' }}</td>
+                            <td>{{ voiture.nombreDePlaces }}</td>
+                            <td>{{ voiture.emissons }}</td>
+                            <td>{{ voiture.images ? voiture.images|join(', ') : 'Aucune' }}</td>
+                            <td>
+                                <a href="{{ path('app_voiture_location_crud_show', {'id': voiture.id}) }}" class="btn btn-info btn-sm">Montrer</a>
+                                <a href="{{ path('app_voiture_location_crud_edit', {'id': voiture.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="12">Aucun véhicule trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="{{ path('app_voiture_location_crud_new') }}" class="btn btn-primary mt-3">Ajouter une nouvelle voiture</a>
+        </div>
+    </main>
+{% endblock %}

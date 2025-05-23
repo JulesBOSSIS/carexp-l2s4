@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Créer un compte{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Créer un compte !</h2>
+            <article>
+                <div class="row mt-4">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="post">
+                            {{ form_errors(registrationForm) }}
+
+                            {# Champ CSRF #}
+                            {{ form_widget(registrationForm._token) }}
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.firstName, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.name, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.email, 'Adresse email', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+
+                            <div class="form-check mb-3">
+                                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input', 'id': 'agree_terms'}}) }}
+                                {{ form_label(registrationForm.agreeTerms, 'Accepter les conditions', {'label_attr': {'class': 'form-check-label'}, 'label_attr': {'for': 'agree_terms'}}) }}
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary mt-3">Créer un compte !</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,329 @@
+:root {
+    --primary-color: #364208; /* Couleur principale */
+    --secondary-color: #6c757d; /* Couleur secondaire */
+    --text-color: #333; /* Couleur du texte */
+    --background-color: #f8f9fa; /* Couleur de fond */
+    --text-color-menu: white;
+}
+
+/* Définition de la police d'écriture */
+body {
+    font-family: 'Arial', sans-serif; /* Police d'écriture */
+}
+main{
+    margin-bottom: 5rem;
+}
+/* Mise en forme du menu */
+header {
+    background-color: var(--primary-color);
+    color: var(--text-color-menu);
+    padding: 10px 20px; /* Réduire le padding */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.7s ease;
+}
+
+header.shrink {
+    padding: 5px 20px; /* Ajuster le padding en cas de réduction */
+    background-color: rgba(54, 66, 8, 0.9);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    text-decoration: none;
+    color: var(--text-color-menu);
+    font-weight: bold; /* Mettre en gras */
+    font-size: 1.5rem; /* Ajuster la taille */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color-menu);
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+ul li a .text {
+    display: none;
+}
+
+ul li a:hover .text {
+    display: inline;
+}
+
+/* Styles pour le menu burger */
+.burger-menu {
+    display: none; /* Par défaut, masquez le menu burger */
+}
+
+/* Affiche le menu burger uniquement sur les appareils mobiles */
+@media only screen and (max-width: 768px) {
+    .burger-menu {
+        display: block; /* Affiche le menu burger */
+        cursor: pointer; /* Ajoute un curseur pointer pour indiquer que c'est cliquable */
+    }
+    ul li a .text {
+        display: inline;
+    }
+    nav ul {
+        display: none; /* Masque la liste des liens du menu */
+        position: absolute;
+        top: 80px; /* Ajustez selon la hauteur du menu */
+        left: 0;
+        background-color: var(--primary-color);
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
+        z-index: 999; /* Assure que le menu burger reste au-dessus du contenu */
+    }
+
+    nav ul.active {
+        display: block; /* Affiche la liste des liens du menu lorsque le menu burger est activé */
+    }
+
+    nav ul li {
+        display: block; /* Affiche les éléments de la liste verticalement */
+        margin-bottom: 10px; /* Espacement entre chaque élément de la liste */
+    }
+
+    nav ul li a {
+        color: #fff;
+        transition: color 0.3s ease;
+    }
+
+
+    .carte{
+        display: none;
+    }
+}
+
+
+/* Mise en forme du pied de page */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 99999;
+}
+
+body {
+    padding-top: 100px;
+}
+
+h2 {
+    color: #ceae07;
+    font-size: xxx-large;
+    padding-left: 20px;
+}
+
+/* Mise en forme des articles */
+article {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin:0 5px 20px 5px;
+}
+
+article h2 {
+    color: var(--primary-color);
+    font-size: x-large;
+    padding-left: 0;
+}
+
+article p {
+    color: var(--text-color);
+    white-space: pre-line;
+    text-align: justify;
+}
+article .vehicle-price p {
+    color: var(--background-color);
+}
+/* Styles pour la liste des véhicules */
+#vehicle-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.vehicle-card {
+    font-family: 'Fira Sans', 'Arial', 'Helvetica', sans-serif;
+    width: 100%; /* Sur mobile, un véhicule prend toute la largeur */
+    max-width: 75%; /* Sur ordinateur, une largeur maximale de 75% */
+    margin: 0 auto; /* Centrer horizontalement */
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.vehicle-card img {
+    width: 40%; /* Image à gauche, occupe 40% de la largeur de la carte */
+    height: auto;
+    object-fit: cover;
+    border-right: 1px solid #ccc;
+}
+
+.vehicle-info {
+    flex: 1; /* Les informations occupent le reste de la largeur disponible */
+    padding: 15px;
+}
+
+
+.card-link:hover .card {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-link:hover .card .card-body {
+    background-color: #f8f9fa;
+}
+
+.vehicle-info h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.vehicle-features i {
+    margin-right: 5px;
+}
+
+.vehicle-features {
+    margin-bottom: 10px;
+}
+
+.vehicle-price {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 10px;
+    text-align: center;
+}
+
+.car-details {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Une colonne pour le contenu principal, une colonne pour le carrousel */
+    gap: 20px; /* Espacement entre les colonnes */
+}
+
+.car-carousel {
+    overflow: hidden; /* Pour cacher le débordement du carrousel */
+}
+
+.owl-carousel-vertical-container {
+    height: 100%; /* Hauteur maximale pour le carrousel */
+}
+
+.img-carousel {
+    height: 13rem;
+    object-fit: cover;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    max-width: 70%;
+}
+
+.message-content {
+    margin-bottom: 5px;
+}
+
+.sent {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.received {
+    align-self: flex-start;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.message-info {
+    font-size: 12px;
+    color: #666;
+}
+
+
+.conversation-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact-name {
+    font-weight: bold;
+}
+
+.last-message {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.image-message {
+    max-width: 100%;
+    height: auto;
+}
+
+.profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+}
+
+
+.profile-image-grand {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Location index{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="my-4">Location index</h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date de début</th>
+                        <th scope="col">Date de fin</th>
+                        <th scope="col">Prix total</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for location in locations %}
+                        <tr>
+                            <td>{{ location.id }}</td>
+                            <td>{{ location.dateDebutLocation ? location.dateDebutLocation|date('Y-m-d') : '' }}</td>
+                            <td>{{ location.dateFinLocation ? location.dateFinLocation|date('Y-m-d') : '' }}</td>
+                            <td>{{ location.prixTotal }}</td>
+                            <td>
+                                <a href="{{ path('app_location_show', {'id': location.id}) }}" class="btn btn-info btn-sm">Montrer</a>
+                                <a href="{{ path('app_location_edit', {'id': location.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Aucune location trouvée</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <a href="{{ path('app_location_new') }}" class="btn btn-primary mt-3">Créer une nouvelle location</a>
+        </div>
+    </main>
+{% endblock %}

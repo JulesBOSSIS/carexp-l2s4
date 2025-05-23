@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Message{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Conversation avec {{ conversation.autreUtilisateur(user).name }} {{ conversation.autreUtilisateur(user).firstName }}</h2>
+            <div class="message-list mt-4">
+                {% for message in conversation.messages %}
+                    <div class="message {% if message.expediteur.id == user.id %}sent{% else %}received{% endif %}">
+                        {% if message.contenu %}
+                            <p class="message-content">{{ message.contenu }}</p>
+                        {% endif %}
+                        {% if message.image %}
+                            <img src="{{ asset('img/message/' ~ message.image) }}" alt="Image du message" class="image-message">
+                        {% endif %}
+                        <small class="message-info">{{ message.date|date('d/m/Y H:i') }} / {% if message.lu %}lu{% else %}non-lu{% endif %}</small>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <h2 class="mt-4">Ajouter un message</h2>
+            <div class="message-form">
+                {{ form_start(form) }}
+                {{ form_row(form.contenu, {'attr': {'class': 'form-control', 'placeholder': 'Écrivez votre message ici'}}) }}
+                {{ form_row(form.image, {'attr': {'class': 'form-control', 'placeholder': 'Envoyer une image'}}) }}
+                <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </main>
+{% endblock %}

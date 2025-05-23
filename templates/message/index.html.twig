@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Messagerie{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Mes conversations</h2>
+            <div class="conversation-list mt-4">
+                {% if conversations is empty %}
+                    <p>Vous n'avez aucune conversation.</p>
+                {% else %}
+                    <ul class="list-group">
+                        {% for conversation in conversations %}
+                            <li class="list-group-item">
+                                <a href="{{ path('app_message_show', {'id': conversation.id}) }}" class="conversation-link">
+                                    <span class="contact-name">{{ conversation.autreUtilisateur(user).name }} {{ conversation.autreUtilisateur(user).firstName }}</span>
+                                    {% if conversation.dernierMessage %}
+                                        <span class="last-message text-right d-block">
+                                    {% if conversation.dernierMessage.expediteur == user %}
+                                        <strong>Vous:</strong> {{ conversation.dernierMessage.contenu }}
+                                    {% else %}
+                                        <strong>{{ conversation.autreUtilisateur(user).name }}:</strong> {{ conversation.dernierMessage.contenu }}
+                                    {% endif %}
+                                </span>
+                                    {% else %}
+                                        <span class="last-message"><em>Pas de messages</em></span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

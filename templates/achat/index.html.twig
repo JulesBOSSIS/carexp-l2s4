@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Achat{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Acheter un véhicule</h2>
+
+            {{ form_start(form, {'attr': {'class': 'mt-4'}}) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.marque, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.modele, {'attr': {'class': 'form-control'}}) }}
+                </div><div class="col-md-6">
+                    {{ form_row(form.kilometrage, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.prixVente, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.agence, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Rechercher</button>
+            {{ form_end(form) }}
+
+            <hr>
+
+            {% if voitures is not empty %}
+                <h2 class="mt-4">Résultats de la recherche</h2>
+                <div id="vehicle-list" class="mt-4">
+                    <div class="row">
+                        {% for voiture in voitures %}
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ path('app_voir_voiture', {'id': voiture.id}) }}" class="card-link">
+                                    <div class="card h-100">
+                                        <div class="card h-100">
+                                            <div style="height: 200px; overflow: hidden;">
+                                                <img src="{{ asset('img/'~voiture.images[0]) }}" class="card-img-top" alt="{{ voiture.modele }}" style="object-fit: cover; width: 100%;">
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: #0a0a0a">{{ voiture.marque }} - {{ voiture.modele }}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <p class="card-text" style="font-size: 1rem;">Prix : {{ voiture.prixVente }} €</p>
+                                            {% if app.user and voiture.proprietaire == app.user %}
+                                                <p class="text-success">Vous êtes le/la propriétaire de ce véhicule</p>
+                                            {% else %}
+                                                <a href="{{ path('app_acheter', {'id': voiture.id}) }}" class="btn btn-success">Acheter</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p class="mt-4">Aucun résultat trouvé pour le moment.</p>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

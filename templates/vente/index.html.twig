@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Vente{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2>Vendre un véhicule</h2>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.marque, 'Marque', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.marque, {'attr': {'class': 'form-control', 'placeholder': 'Entrez la marque du véhicule'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.modele, 'Modèle', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.modele, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le modèle du véhicule'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.anneeMiseEnCirculation, 'Année de mise en circulation', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.anneeMiseEnCirculation, {'attr': {'class': 'form-control', 'placeholder': 'Entrez l\'année de mise en circulation'}}) }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.kilometrage, 'Kilométrage', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.kilometrage, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le kilométrage du véhicule'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.nombreDePlaces, 'Nombre de places', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.nombreDePlaces, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nombre de places du véhicule'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.clim, 'Climatisation', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.clim, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.emissons, 'Émissions CO2', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.emissons, {'attr': {'class': 'form-control', 'placeholder': 'Entrez les émissions de CO2 du véhicule'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.images, 'Images', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.images, {'attr': {'class': 'form-control', 'placeholder': 'Entrez au moins une image du véhicule'}}) }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.categorie, 'Catégorie', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.categorie, {'attr': {'class': 'form-control', 'placeholder': 'Entrez la catégorie du véhicule'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.agence, 'Agence', {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_widget(form.agence, {'attr': {'class': 'form-control', 'placeholder': 'Entrez l\'agence de vente du véhicule'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.prixVente, 'Prix', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.prixVente, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le prix du véhicule'}}) }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Ajouter le véhicule</button>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

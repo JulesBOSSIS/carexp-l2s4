@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}CarExp{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+            <script type="text/javascript" src="{{ asset('js/script.js') }}" defer></script>
+        {% endblock %}
+    </head>
+    <body>
+    <header>
+        <nav>
+            <a href="{{ path('app_homepage') }}" class="navbar-brand"><h1>CarExp</h1></a>
+            <div class="burger-menu">&#9776;</div>
+            <ul>
+                <li><a href="{{ path('app_homepage') }}"><span class="icon"><i class="fas fa-home fa-lg"></i></span><span class="text"> Accueil</span></a></li>
+                <li><a href="{{ path('app_voiture') }}"><span class="icon"><i class="fas fa-eye fa-lg"></i></span><span class="text"> Véhicules disponibles</span></a></li>
+                <li><a href="http://localhost:5173/chat"><span class="icon"><i class="fas fa-comment fa-lg"></i></span><span class="text"> Chat</span></a></li>
+                {% if app.user %}
+                    {% if 'ROLE_USER' in app.user.roles %}
+                        <li><a href="{{ path('app_vente') }}"><span class="icon"><i class="fas fa-car-alt fa-lg"></i></span><span class="text"> Vendre un Véhicule</span></a></li>
+                        <li><a href="{{ path('app_achat') }}"><span class="icon"><i class="fas fa-shopping-cart fa-lg"></i></span><span class="text"> Acheter un Véhicule</span></a></li>
+                        <li><a href="{{ path('app_louer') }}"><span class="icon"><i class="fas fa-handshake fa-lg"></i></span><span class="text"> Louer un Véhicule</span></a></li>
+                    {% endif %}
+                    {% if 'ROLE_ADMIN' in app.user.roles %}
+                        <li><a href="{{ path('app_admin') }}">Administration</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('app_message') }}"><span class="icon"><i class="fas fa-comment fa-lg"></i></span><span class="text"> Messagerie</span></a></li>
+                    {% if app.user %}
+                        {% if app.user.imageProfil %}
+                            <li><a href="{{ path('app_profil') }}"><img src="{{ asset('img/profil/' ~ app.user.imageProfil) }}" alt="Photo de profil" class="profile-image"><span class="text"> Profil</span></a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_profil') }}"><span class="icon"><i class="fas fa-user fa-lg"></i></span><span class="text"> Profil</span></a></li>
+                        {% endif %}
+                    {% endif %}                    <li><a href="{{ path('app_logout') }}"><span class="icon"><i class="fas fa-sign-out-alt fa-lg"></i></span><span class="text"> Déconnexion</span></a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}"><span class="icon"><i class="fas fa-lock fa-lg"></i></span><span class="text"> Connexion</span></a></li>
+                    <li><a href="{{ path('app_register') }}"><span class="icon"><i class="fas fa-user-plus fa-lg"></i></span><span class="text"> Inscription</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+        {% block body %}{% endblock %}
+   </div>
+    <footer>
+        <p>Projet 🇫🇷 - L2S4 - 2024</p>
+    </footer>
+    </body>
+</html>

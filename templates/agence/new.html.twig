@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Création d'une nouvelle agence{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Créer une nouvelle agence</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    {{ include('agence/_form.html.twig') }}
+                </div>
+            </div>
+            <a href="{{ path('app_agence_index') }}" class="btn btn-primary">Revenir à la liste</a>
+        </div>
+    </main>
+{% endblock %}

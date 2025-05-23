@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Profil{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mt-4">
+                        {% if app.user %}
+                            {% if app.user.imageProfil %}
+                                <img src="{{ asset('img/profil/' ~ app.user.imageProfil) }}" alt="Photo de profil" class="profile-image-grand">
+                            {% endif %}
+                        {% endif %}
+                        Profil de {{ app.user.firstName }}
+                    </h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Informations de l'utilisateur :</h4>
+                            <p class="card-text">Prénom : {{ app.user.firstName }}</p>
+                            <p class="card-text">Email : {{ app.user.email }}</p>
+
+                            <h4 class="card-title">Ajouter une image de profil :</h4>
+                            <a href="{{ path('app_profil_modifier') }}">Ajout</a>
+
+                            <h4 class="card-title">Messagerie :</h4>
+                            <a href="{{ path('app_message') }}">Voir mes messages</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mt-4">Véhicules en vente :</h2>
+                    <ul class="list-group">
+                        {% if voitures|length >0 %}
+                            {% for voiture in voitures %}
+                                <li class="list-group-item">
+                                    {{ voiture.marque }} {{ voiture.modele }} - Agence actuelle : {{ voiture.agence.adresse }}
+                                    <form action="{{ path('app_changer_agence_vente', {'id': voiture.id}) }}" method="post" class="mt-2">
+                                        <select name="nouvelle_agence" class="form-control">
+                                            {% for agence in agences %}
+                                                <option value="{{ agence.id }}">{{ agence.adresse }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <button type="submit" class="btn btn-primary mt-2">Changer l'agence de vente</button>
+                                    </form>
+                                    <a href="{{ path('app_vente_supprimer', { 'id': voiture.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette vente ?')" class="btn btn-danger mt-2">Supprimer</a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">Aucune vente en cours.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mt-4">Anciennes ventes de l'utilisateur :</h2>
+                    <ul class="list-group">
+                        {% if ventes|length > 0 %}
+                            {% for vente in ventes %}
+                                <li class="list-group-item">Date de vente : {{ vente.dateVente|date('Y-m-d') }} - Prix de vente : {{ vente.prixVente }} - Véhicule vendu : {{ vente.voiture.marque }} {{ vente.voiture.modele }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">Aucune vente effectuée.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mt-4">Achats de l'utilisateur :</h2>
+                    <ul class="list-group">
+                        {% if achats|length > 0 %}
+                            {% for achat in achats %}
+                                <li class="list-group-item">Date d'achat : {{ achat.dateVente|date('Y-m-d') }} - Prix d'achat : {{ achat.prixVente }} - Véhicule acheté : {{ achat.voiture.marque }} {{ achat.voiture.modele }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">Aucun achat effectué.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h2>Anciennes locations de l'utilisateur :</h2>
+                    <ul class="list-group">
+                        {% if anciennesLocations|length > 0 %}
+                            {% for location in anciennesLocations %}
+                                <li class="list-group-item">Date de début : {{ location.dateDebutLocation|date('Y-m-d') }} - Date de fin : {{ location.dateFinLocation|date('Y-m-d') }} - Prix total : {{ location.prixTotal }} € - Véhicule loué : {{ location.voitureLoue.marque }} {{ location.voitureLoue.modele }}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">Aucune ancienne location.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h2>Nouvelles locations de l'utilisateur :</h2>
+                    <ul class="list-group">
+                        {% if nouvellesLocations|length > 0 %}
+                            {% for location in nouvellesLocations %}
+                                <li class="list-group-item">Date de début : {{ location.dateDebutLocation|date('Y-m-d') }} - Date de fin : {{ location.dateFinLocation|date('Y-m-d') }} - Prix total : {{ location.prixTotal }} € - Véhicule loué : {{ location.voitureLoue.marque }} {{ location.voitureLoue.modele }} {% if location.dateDebutLocation > dateDuJour %}<a href="{{ path('app_louer_supprimer', { 'id': location.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette location ?')" class="btn btn-danger ml-2">Supprimer</a>{% endif %}</li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">Aucune nouvelle location.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

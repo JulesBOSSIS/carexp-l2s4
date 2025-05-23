@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Voiture{% endblock %}
+
+{% block body %}
+    <main>
+        <h2>Voiture</h2>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ voiture.id }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ voiture.marque }}</td>
+            </tr>
+            <tr>
+                <th>Modele</th>
+                <td>{{ voiture.modele }}</td>
+            </tr>
+            <tr>
+                <th>AnneeMiseEnCirculation</th>
+                <td>{{ voiture.anneeMiseEnCirculation ? voiture.anneeMiseEnCirculation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Kilometrage</th>
+                <td>{{ voiture.kilometrage }}</td>
+            </tr>
+            <tr>
+                <th>PrixLocationParJour</th>
+                <td>{{ voiture.prixLocationParJour }}</td>
+            </tr>
+            <tr>
+                <th>EstALouer</th>
+                <td>{{ voiture.estALouer ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Clim</th>
+                <td>{{ voiture.clim ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>NombreDePlaces</th>
+                <td>{{ voiture.nombreDePlaces }}</td>
+            </tr>
+            <tr>
+                <th>Emissons</th>
+                <td>{{ voiture.emissons }}</td>
+            </tr>
+            <tr>
+                <th>Images</th>
+                <td>{{ voiture.images ? voiture.images|join(', ') : '' }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_voiture_location_crud_index') }}">Revenir à la liste</a>
+
+        <a href="{{ path('app_voiture_location_crud_edit', {'id': voiture.id}) }}">Modifier</a>
+
+        {{ include('voiture_location_crud/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

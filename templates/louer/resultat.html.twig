@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Louer Choix{% endblock %}
+
+{% block body %}
+    <main>
+        <h2>Louer un véhicule</h2>
+
+        {% if vehicules != null %}
+            <h2>Résultats de la recherche</h2>
+            <div id="vehicle-list">
+                <ul>
+                    {% for voiture in vehicules %}
+                        <div class="vehicle-card">
+                            <img src="{{ asset('img/'~voiture.images[0]) }}" alt="{{ voiture.modele }}">
+                            <div class="vehicle-info">
+                                <h2>{{ voiture.marque }} - {{ voiture.modele }}</h2>
+                                <div class="vehicle-features">
+                                    <i class="fas fa-users"> {{voiture.nombreDePlaces}} place(s)</i>
+                                    <i class="fas fa-snowflake"> {{ voiture.clim ? 'Oui' : 'Non'}}</i>
+                                    <i class="fas fa-cloud"> CO2 : {{ voiture.emissons }} g/km</i>
+                                </div>
+                            </div>
+                            <div class="vehicle-price">
+                                <p>Prix / Jour :  {{ voiture.prixLocationParJour }}€</p>
+                                <p>Total :  {{ voiture.prixLocationParJour * nbJours }}€</p>
+                                <a href="{{ path('app_louer_confirmation', {'id': voiture.id, 'dateDebut': dateDebut|date('Y-m-d'), 'dateFin': dateFin|date('Y-m-d')}) }}" class="btn btn-success">Louer</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>Aucun résultat trouvé pour le moment.</p>
+        {% endif %}
+    </main>
+{% endblock %}

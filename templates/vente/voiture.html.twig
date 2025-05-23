@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Détails de la voiture{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <article>
+                {% if voiture == null %}
+                    <p>Ce véhicule n'est pas disponible à la vente.</p>
+                {% else %}
+                    <h2 class="mt-4">Détails de la voiture</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-10">
+                            <div class="card">
+                                <div class="row g-0">
+                                    <div class="col-md-6">
+                                        <!-- Carousel pour faire défiler les images de la voiture -->
+                                        <div id="car-image-carousel" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                {% for index, image in voiture.images %}
+                                                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                                        <img src="{{ asset('img/' ~ image) }}" class="d-block w-100 img-carousel" alt="{{ voiture.modele }}">
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <a class="carousel-control-prev" href="#car-image-carousel" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#car-image-carousel" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ voiture.marque }} - {{ voiture.modele }}</h5>
+                                            <ul class="list-unstyled">
+                                                <li><strong>Année de mise en circulation:</strong> {{ voiture.anneeMiseEnCirculation|date('Y') }}</li>
+                                                <li><strong>Kilométrage:</strong> {{ voiture.kilometrage }}</li>
+                                                <li><strong>Nombre de places:</strong> {{ voiture.nombreDePlaces }}</li>
+                                                <li><strong>Climatisation:</strong> {{ voiture.clim ? 'Oui' : 'Non' }}</li>
+                                                {% if voiture.categorie != null %}<li><strong>Type de véhicule:</strong> {{ voiture.categorie }}</li>{% endif %}
+                                                <li><strong>Émissions de CO2:</strong> {{ voiture.emissons }} g/km</li>
+                                                <li><strong>Prix de vente:</strong> {{ voiture.prixVente }} €</li>
+                                            </ul>
+                                            {% if app.user and voiture.proprietaire == app.user %}
+                                                <p class="text-success">Vous êtes le/la propriétaire de ce véhicule</p>
+                                            {% else %}
+                                                <a href="{{ path('app_contact_vendeur', {'id': voiture.id}) }}" class="btn btn-primary">Contacter le vendeur</a>
+                                                <a href="{{ path('app_acheter', {'id': voiture.id}) }}" class="btn btn-success">Acheter</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </article>
+
+            <article>
+                <h2>D'autres véhicules de la collection</h2>
+                <div class="row mt-4">
+                    <div class="car-carousel">
+                        <!-- Carrousel des véhicules -->
+                        <div class="owl-carousel-vertical-container">
+                            <div id="vehicle-carousel" class="owl-carousel">
+                                {% for vehicule in vehicules %}
+                                    <a href="{{ path('app_voir_voiture', {'id': vehicule.id}) }}" class="card-link">
+                                        <div class="item">
+                                            <img src="{{ asset('img/' ~ vehicule.images[0]) }}" alt="{{ vehicule.modele }}" class="img-fluid rounded img-carousel">
+                                            <h5 style="color: black">{{ vehicule.marque }} - {{ vehicule.modele }}</h5>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function(){
+            $("#vehicle-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 5
+                    }
+                },
+                animateOut: 'slideOutUp',
+                animateIn: 'slideInUp',
+            });
+        });
+
+    </script>
+{% endblock %}

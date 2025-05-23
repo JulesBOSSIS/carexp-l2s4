@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modifier Location{% endblock %}
+
+{% block body %}
+    <main>
+        <h2>Modifier une Location</h2>
+
+        {{ include('location/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_location_index') }}">Revenir à l'index de location</a>
+
+        {{ include('location/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

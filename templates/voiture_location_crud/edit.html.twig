@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modifier Voiture{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="my-4">Modifier Voiture</h2>
+
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    {{ include('voiture_location_crud/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+                    <a href="{{ path('app_voiture_location_crud_index') }}" class="btn btn-secondary mt-3">Revenir à la liste</a>
+
+                    {{ include('voiture_location_crud/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

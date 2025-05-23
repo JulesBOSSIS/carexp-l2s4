@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Voitures{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Voitures</h2>
+
+            <article class="mt-4">
+                <p class="lead">Attention pour commander un véhicule, vous devez être identifié sur le site.</p>
+            </article>
+
+            <article class="mt-4">
+                <h3>Voici un échantillon des véhicules disponibles sur notre site :</h3>
+
+                {% if voituresVente is not empty %}
+                    <h2 class="mt-4">Véhicule(s) à vendre</h2>
+                    <br>
+                    <div class="row row-cols-1 row-cols-md-3">
+                        {% for voiture in voituresVente %}
+                            <div class="col mb-4">
+                                <a href="{{ path('app_voir_voiture', {'id': voiture.id}) }}" class="card-link">
+                                    <div class="card h-100">
+                                        <div style="height: 200px; overflow: hidden;">
+                                            <img src="{{ asset('img/'~voiture.images[0]) }}" class="card-img-top" alt="{{ voiture.modele }}" style="object-fit: cover; width: 100%;">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #0a0a0a">{{ voiture.marque }} - {{ voiture.modele }}</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucun véhicule à acheter pour le moment.</p>
+                {% endif %}
+            </article>
+
+            <article class="mt-4">
+                {% if voitureLocation is not empty %}
+                    <h2 class="mt-4">Véhicule(s) à louer</h2>
+                    <br>
+                    <div class="row row-cols-1 row-cols-md-3">
+                        {% for voiture in voitureLocation %}
+                            <div class="col mb-4">
+                                <div class="card h-100">
+                                    <div style="height: 200px; overflow: hidden;">
+                                        <img src="{{ asset('img/'~voiture.images[0]) }}" class="card-img-top" alt="{{ voiture.modele }}" style="object-fit: cover; width: 100%;">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ voiture.marque }} - {{ voiture.modele }}</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-users"></i> {{voiture.nombreDePlaces}} place(s)</li>
+                                            <li><i class="fas fa-snowflake"></i> {{ voiture.clim ? 'Climatisation' : 'Pas de climatisation' }}</li>
+                                            <li><i class="fas fa-cloud"></i> CO2 : {{ voiture.emissons }} g/km</li>
+                                        </ul>
+                                        <p class="card-text">Prix / Jour:  {{ voiture.prixLocationParJour }}€</p>
+                                        <p class="card-text">Agence {{ voiture.agence.nom }}.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Aucun véhicule à louer pour le moment.</p>
+                {% endif %}
+            </article>
+        </div>
+    </main>
+{% endblock %}

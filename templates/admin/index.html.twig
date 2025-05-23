@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - ADMIN{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="mt-4">Administration</h2>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Agences</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="{{ path('app_agence_index') }}" class="card-link">Gérer les agences</a></li>
+                                <li class="list-group-item"><a href="{{ path('app_voiture_location_crud_index') }}" class="card-link">Voir les voitures à louer</a></li>
+                                <li class="list-group-item"><a href="{{ path('app_redistribuer_voitures') }}" class="card-link">Redistribuer les voitures</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Locations</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="{{ path('app_location_index') }}" class="card-link">Gérer les locations</a></li>
+                                <li class="list-group-item"><a href="http://localhost:5173/dashboard" class="card-link">Statistiques des locations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

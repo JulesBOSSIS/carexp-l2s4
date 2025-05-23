@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Nouvelle Location{% endblock %}
+
+{% block body %}
+    <main>
+        <h2>Créer une nouvelle location</h2>
+
+        {{ include('location/_form.html.twig') }}
+
+        <a href="{{ path('app_location_index') }}">Revenir à l'index de location</a>
+    </main>
+{% endblock %}

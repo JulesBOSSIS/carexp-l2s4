@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Confirmation{% endblock %}
+
+{% block body %}
+    <main>
+        <h2>Confirmation d'achat</h2>
+
+        <p>Merci d'avoir acheté une voiture chez nous</p>
+        Petit récap :
+        <ul>
+            <li>{{ vehicule.marque }}</li>
+            <li>{{ vehicule.modele }}</li>
+            <li>{{ vehicule.anneeMiseEnCirculation|format_date('full', locale='fr') }}</li>
+            <li>{{ vehicule.prixVente }}</li>
+        </ul>
+    </main>
+{% endblock %}

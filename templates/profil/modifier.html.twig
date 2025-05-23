@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Modifier Profil{% endblock %}
+
+{% block body %}
+    <main>
+        <h2>Modifier Profil</h2>
+
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_row(form.imageProfil, {'attr': {'class': 'form-control-file'}}) }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+    </main>
+{% endblock %}
